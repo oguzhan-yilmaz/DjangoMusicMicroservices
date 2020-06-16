@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.get_username }}.
+        Here is your annotated songs:.</p>
+    <ul>
+    {% for song in annotated_songs %}
+        <li>{{ song }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Welcome, new user. Please log in.</p>
+{% endif %}
+
+
+{% block content %}
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+</body>
+</html>
