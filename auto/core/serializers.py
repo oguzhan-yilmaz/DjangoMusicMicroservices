@@ -14,8 +14,14 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'user_songs']
 
 class SongModelSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
 
+    def get_url(self, obj):
+        domain = 'http://localhost:8000/'  # current_site.domain
+        path = obj.song_file.url
+        print(path)
+        return domain + path
     class Meta:
         model = SongModel
         fields = ['id', 'song_title', 'bpm',
-                  'key', 'key_scale', 'song_partitions']
+                  'key', 'key_scale', 'url']

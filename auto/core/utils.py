@@ -23,8 +23,7 @@ def annotate_song(filepath):
     return {'bpm': bpm,
             'key': key,
             'key_scale': scale,
-            'key_strength': key_strength,
-            'beats': beats}
+            'key_strength': key_strength,}
 
 def in_seconds(seconds):
     # returns a string that gives out given seconds as mins:secs

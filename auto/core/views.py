@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from .forms import SongFileUploadForm
 from django.views.generic.edit import FormView
 from .models import *
+from .serializers import *
 # Create your views here.
 class SongUploadView(FormView):
     form_class = SongFileUploadForm
@@ -31,11 +32,38 @@ class SongUploadView(FormView):
             sm.save()
             print('upload complete, starting annotating')
             # here
-            annotate_song_and_partition_it(sm)
 
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+
+class UserApiView(APIView):
+
+    def post(self, request, *args, **kwargs):
+        user_email = request.data.get('email', None)
+        user_username = request.data.get('username', None)
+        user_password = request.data.get('password', None)
+        if user_email is None or user_password is None or user_username is None:
+            return Response({'detail': 'Email, Username or Password fields must be not empty.'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            if not validateEmail(user_email):
+                return Response({'detail': 'Please enter a valid email.'}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                # valid email.
+                # TODO: add more fields
+                user = User.objects.create(
+                    email=user_email, username=user_username)
+                user.set_password(user_password)
+                user.is_active = False
+                user.save()
+                s_user = UserSerializer(user)
+                return Response(s_user.data, status=status.HTTP_201_CREATED)
+
+    def get(self, request, *args, **kwargs):
+        s_user = UserSerializer(request.user)
+        return Response(s_user.data)
+
 
 class SongModelListView(APIView):
     """

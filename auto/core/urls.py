@@ -19,4 +19,5 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view()),
     # path('', include(router.urls)),
     path('api/songs/', SongModelListView.as_view()),
+    path('api/users/', UserApiView.as_view()),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

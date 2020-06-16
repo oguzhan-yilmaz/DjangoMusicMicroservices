@@ -32,7 +32,7 @@ class SongModel(models.Model):
     key_strength = models.FloatField(null=True)
 
     def __str__(self):
-        return self.song_title
+        return self.song_title or "song"
 
 
 # Django signals
@@ -54,7 +54,7 @@ def auto_session_and_controller_create_for_user(sender, instance, created, **kwa
         instance.key = annotation['key']
         instance.key_strength = annotation['key_strength']
         instance.key_scale = annotation['key_scale']
-        song_model.save()
+        instance.save()
 
 @receiver(models.signals.post_delete, sender=SongModel)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
