@@ -8,6 +8,15 @@ from django.views.generic.edit import FormView
 from .models import *
 from .serializers import *
 # Create your views here.
+
+def homepage(request):
+    context = {}
+    if request.user.is_authenticated:
+        songs = SongModel.objects.filter(user=request.user)
+        serializer = SongModelSerializer(songs, many=True)
+        context.update({'songs':serializer.data}) 
+
+    return render(request, 'core/homepage.html', context)
 class SongUploadView(FormView):
     form_class = SongFileUploadForm
     template_name = 'core/song_upload.html'  # Replace with your template.

@@ -1,0 +1,16 @@
+FROM python:latest
+
+RUN apt-get update \
+    && apt-get install -yq --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+
+COPY ./src/backend /opt/backend
+
+RUN pip install -r /opt/backend/requirements.txt
+
+WORKDIR /opt/backend
+
+EXPOSE 8000
+ENTRYPOINT ["python", "manage.py"]
+CMD ["runserver", "0.0.0.0:8000"]
