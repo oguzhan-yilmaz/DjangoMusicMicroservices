@@ -1,23 +1,49 @@
 {% extends 'core/base.html' %}
 {%load static%}
 {% block content %}
-<div
-{% for song in songs %}
-    {{song.bpm}}
-    {{song.key}}
-    {{song.key_scale}}
-    <audio controls>
-    <source src="{{song.url}}" type="audio/wav">
-    </audio>
-{% endfor %}
-<h1 > PLAYER</h1>
+<div class="ui grid" style="margin-top:25px">
+  <div class="four wide column"></div>
+  <div class="eight wide column">
+  {% if user.is_authenticated %}
+    <h1 class="ui header"> Here are your songs</h1>
+    <h4 class="ui header"> 
+        <a href="{% url "song_upload" %}" class="item">You can also upload songs by clicking here!</a>
+    
+    </h4>
+                <div class="ui divider"></div>
+                    <div class="ui inverted segment">
+                        <div class="ui inverted relaxed divided list">
+                            {% for song in songs %}
+                                <div class="item">
+                            <div class="content">
+                                <div class="ui primary header">{{song.song_title}}</div>
+                                    <div class="meta">
+                                        <div class="ui subheader">BPM: {{song.bpm}}</div>
+                                        <div class="ui subheader">KEY: {{song.key}} {{song.key_scale}}</div>
+                                    </div>
+                                </div>
+                                <audio controls style="width:90%">
+                                    <source src="{{song.url}}" type="audio/wav">
+                                </audio>
+                            </div>
+                        {% endfor %}
+                    </div>
+    {% else %}
+        <div class="ui message">
+        <div class="header">
+            Please login <a href="{% url "login" %}">here</a>
+        </div>
+        <p>To enjoy our best music serving app, please login.</p>
+        </div>
+    {% endif %}
+            
+  </div>
+  <div class="four wide column"></div>
+</div>
+
+
 
 
 {% endblock %}
 
 
-
-
-{% block js %}
-
-{% endblock %}

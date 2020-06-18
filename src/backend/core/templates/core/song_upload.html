@@ -2,10 +2,32 @@
 
 {% block content %}
 
-<form method="POST" class="post-form" enctype="multipart/form-data">
+<div class="ui grid" style="margin-top:10px">
+  <div class="four wide column"></div>
+  <div class="eight wide column">
+  <div class="ui inverted segment">
+<div class="ui blue header"> Your songs: </div>
+<div class="ui divider"> </div>
+  <div class="ui inverted relaxed divided list">
+
+  {% for song in annotated_songs %}
+        <div class="item">
+        <div class="content">
+            <div class="header">{{song}}</div>
+        </div>
+        </div>
+    {% endfor %}
+    <div class="ui blue header"> Upload New Song </div>
+    <div class="ui divider"> </div>
+</div>
+
+<form  method="POST" class="ui  form" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="save btn btn-default">Save</button>
 </form>
+  </div>
+    <div class="four wide column"></div>
+</div>
 
 {% endblock %}

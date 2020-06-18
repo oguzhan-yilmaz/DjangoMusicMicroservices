@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+
+<div class="ui grid" style="margin-top:25px">
+  <div class="four wide column"></div>
+  <div class="eight wide column">
+      <div class="ui inverted segment" style="margin-top:50px">
+      <div class="ui message">
+      <div class="header">
+        For the demo, enter credentials with
+      </div>
+      <ul class="list">
+        <li>username: oguzhan</li>
+        <li>password: elijah60</li>
+      </ul>
+    </div>
+      <h2 >Login</h2>
+      <form class="ui form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+      </form>
+      </div>
+  
+  </div>
+  <div class="four wide column"></div>
+</div>
+
+{% endblock %}
