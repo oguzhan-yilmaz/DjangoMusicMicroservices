@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  django:    
+    command: python manage.py runserver 0.0.0.0:8000
+    image: cemaltuner/microservices:django-backend-frontend
+    container_name: docker-django-vue-backend  
+    ports:
+      - "8000:8000"
+
+
+
+  nginx:
+    container_name: nginx
+    image: cemaltuner/microservices:nginx
+    restart: always
+    depends_on: 
+      - django
+    ports:
+      - "80:80"
+
+    
+
+  vue:
+    container_name: docker-django-vue-frontend
+    image: cemaltuner/microservices:vue-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - django
