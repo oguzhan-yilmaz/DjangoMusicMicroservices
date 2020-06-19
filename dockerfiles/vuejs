@@ -5,9 +5,10 @@ WORKDIR /opt/frontend
 COPY ./src/frontend/ .
 
 RUN npm install
+RUN yarn install
+RUN yarn build
 
 EXPOSE 8080
 
-ENTRYPOINT ["npm"]
-
-CMD ["run"]
+ENTRYPOINT ["yarn"]
+CMD ["serve"]

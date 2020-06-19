@@ -1,16 +1,14 @@
 FROM python:latest
-
+WORKDIR /opt/backend
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 
-COPY ./src/backend /opt/backend
+COPY ./src/backend .
 
-RUN pip install -r /opt/backend/requirements.txt
+RUN pip install -r requirements.txt
 
-WORKDIR /opt/backend
+
 
 EXPOSE 8000
-ENTRYPOINT ["python", "manage.py"]
-CMD ["runserver", "0.0.0.0:8000"]

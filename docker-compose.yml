@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: dockerfiles/backend      
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: docker-django-vue-backend  
+    ports:
+      - "8000:8000"
+
+  vue:
+    build:
+      context: .
+      dockerfile: dockerfiles/vuejs 
+    container_name: docker-django-vue-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - django
