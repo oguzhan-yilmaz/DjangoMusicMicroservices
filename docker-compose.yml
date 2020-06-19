@@ -9,6 +9,24 @@ services:
     container_name: docker-django-vue-backend  
     ports:
       - "8000:8000"
+    env_file:
+      - ./.env
+
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    image: nginx
+    restart: always
+    depends_on: 
+      - django
+    ports:
+      - "80:80"
+    volumes:
+      - ./static:/src/backend/static
+    
 
   vue:
     build:
@@ -19,3 +37,5 @@ services:
       - "8080:8080"
     depends_on:
       - django
+    env_file:
+      - ./.env

@@ -1,8 +1,12 @@
 FROM python:latest
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+
 WORKDIR /opt/backend
 RUN apt-get update \
-    && apt-get install -yq --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
 
 
 COPY ./src/backend .

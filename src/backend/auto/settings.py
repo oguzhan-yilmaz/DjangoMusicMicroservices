@@ -19,13 +19,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0z6_+mf%ehd@rim*!))x4%#^#(+33al7b6ev5qs&adetu-s6-4'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-LOGIN_REDIRECT_URL = 'homepage'
+
+SECRET_KEY = '0z6_+mf%ehd@rim*!))x4%#^#(+33al7b6ev5qs&adetu-s6-4'
+DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+"""
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+DEBUG = int(os.environ.get("DEBUG", default=0))
+
+
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+"""
+
+LOGIN_REDIRECT_URL = 'homepage'
 
 
 # Application definition
